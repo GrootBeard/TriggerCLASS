@@ -1135,6 +1135,7 @@ int background_indices(
   pba->has_NEDE_pert = _FALSE_;
   pba->has_NEDE_trigger = _FALSE_;
   pba->has_NEDE_trigger_DM = _FALSE_;
+  pba->has_NEDE_entropy_pert = _FALSE_;
 
   if (pba->Omega0_cdm != 0.)
     pba->has_cdm = _TRUE_;
@@ -1152,6 +1153,11 @@ int background_indices(
     // pba->has_NEDE_trigger_DM = _TRUE_; // Change later!!
     if (pba->Omega0_trigger != 0.)
       pba->has_NEDE_trigger_DM = _TRUE_;
+
+    if (pba->z_decay_end < pba->z_decay && pba->z_decay_end > 0.) 
+    {
+      pba->has_NEDE_entropy_pert = _TRUE_;
+    }
   }
 
   if (pba->Omega0_ncdm_tot != 0.)
@@ -2104,6 +2110,7 @@ int background_solve(
         if (pba->background_verbose > 3)
         {
           printf("New EDE decayed at redshift: %f ; fraction New EDE: %f; fraction trigger field: %e \n", pba->z_decay, pba->Omega_NEDE * pow(pba->H0, 2) / (pow(pvecback[pba->index_bg_H], 2)), pba->Omega_trigger_decay * pow(pba->H0, 2) / pow(pvecback[pba->index_bg_H], 2));
+          printf("New EDE Entropy perturbations ceased at redshift: %f (duration: %f), entropy perturbation amplitude: %e\n", pba->z_decay_end, pba->z_decay_duration, pba->A_S_NEDE);
         }
       }
 

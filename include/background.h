@@ -124,6 +124,8 @@ struct background
     double tau_decay;
     double a_decay;
     double z_decay;
+    double z_decay_end;
+    double z_decay_duration;
 
     double a_trigger_fluid;
     double a_trigger_average_start;
@@ -136,6 +138,10 @@ struct background
     double rho_avg_trigger_fld;
     double H_fluid;
     double H_prime_fluid;
+
+    /* NEDE entropy perturbation power spectrum amplitude */
+    double A_S_NEDE;
+    double n_S_NEDE;
 
     /* NEDE fluid nature*/
     int NEDE_fld_nature;
@@ -405,6 +411,7 @@ struct background
     short has_NEDE_pert; /**< presence of NEDE perturbations*/
     short has_NEDE_trigger;
     short has_NEDE_trigger_DM;
+    short has_NEDE_entropy_pert; /**< presence of NEDE entropy perturbations*/
 
     //@}
 
