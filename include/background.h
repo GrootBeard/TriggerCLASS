@@ -125,7 +125,7 @@ struct background
     double a_decay;
     double z_decay;
     double z_decay_end;
-    double z_decay_duration;
+    double z_decay_delta;
 
     double a_trigger_fluid;
     double a_trigger_average_start;

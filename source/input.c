@@ -1460,11 +1460,11 @@ int input_read_parameters(
   class_read_double("Omega0_NEDE_trigger_DM", pba->Omega0_trigger);
   class_read_double("NEDE_trigger_fluid_H_m", pba->Trigger_fluid_H_over_m);
 
-  pba->z_decay_duration = 0.;
+  pba->z_decay_delta = 0.;
   pba->z_decay_end = 0.;
 
   class_read_double("z_decay_end_NEDE", pba->z_decay_end);
-  class_read_double("z_decay_duration_NEDE", pba->z_decay_duration);
+  class_read_double("z_decay_delta_NEDE", pba->z_decay_delta);
   class_read_double("ln10^{10}A_S_NEDE", pba->A_S_NEDE);
   class_read_double("n_S_NEDE", pba->n_S_NEDE);
 
@@ -1551,22 +1551,22 @@ int input_read_parameters(
            pba->Omega0_cdm * pba->h * pba->h, ppm->n_s, log(ppm->A_s / 1.e-10), pth->tau_reio);*/
   }
 
-  if (pba->z_decay_end > 0. || pba->z_decay_duration > 0.) {
+  if (pba->z_decay_end > 0. || pba->z_decay_delta > 0.) {
     if (pba->z_decay_end == 0.)
     { 
-      pba->z_decay_end = pba->z_decay - pba->z_decay_duration;
+      pba->z_decay_end = pba->z_decay - pba->z_decay_delta;
     }
-    else if (pba->z_decay_duration == 0.) 
+    else if (pba->z_decay_delta == 0.) 
     {
       class_test(pba->z_decay_end > pba->z_decay, errmsg,
                 "A value for z_decay_end_NEDE was detected as input. However it is larger than z_decay_NEDE.");
   
-      pba->z_decay_duration = pba->z_decay - pba->z_decay_end;
+      pba->z_decay_delta = pba->z_decay - pba->z_decay_end;
     } 
     else
     {
-      printf("Both z_decay_end and z_decay_duration have been detected as inputs. Will use z_decay_duration.\n");
-      pba->z_decay_end = pba->z_decay - pba->z_decay_duration;
+      printf("Both z_decay_end and z_decay_delta have been detected as inputs. Will use z_decay_delta.\n");
+      pba->z_decay_end = pba->z_decay - pba->z_decay_delta;
     }
 
     class_test(pba->A_S_NEDE == 0., errmsg,
