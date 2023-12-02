@@ -10890,7 +10890,7 @@ int perturb_derivs(double tau,
         {
           // is the current redshift higher than z_decay_end_NEDE?
           if (1./ ppw->pvecback[pba->index_bg_a] - 1. > pba->z_decay_end) {
-            double S = pba->A_S_NEDE * pow(k, pba->n_S_NEDE + 1.);
+            double S = pba->A_S_NEDE * pow(k, pba->n_S_NEDE);
 
             dy[pv->index_pt_delta_NEDE] += -3. * a_prime_over_a * S;
 

@@ -1466,7 +1466,9 @@ int input_read_parameters(
   class_read_double("z_decay_end_NEDE", pba->z_decay_end);
   class_read_double("z_decay_delta_NEDE", pba->z_decay_delta);
   class_read_double("ln10^{10}A_S_NEDE", pba->A_S_NEDE);
-  class_read_double("n_S_NEDE", pba->n_S_NEDE);
+
+  int n_S_NEDE_found;
+  parser_read_double(pfc, "n_S_NEDE", &(pba->n_S_NEDE), &n_S_NEDE_found, errmsg);
 
   /* NEDE: Here we decide whether NEDE decays according to scenario A or B. Default: Scenario A*/
 
@@ -1576,6 +1578,11 @@ int input_read_parameters(
   else 
   {
     pba->A_S_NEDE = 0.;
+  }
+
+  if (n_S_NEDE_found != _TRUE_)
+  {
+    pba->n_S_NEDE = 1.0;
   }
 
   /** - Omega_0_lambda (cosmological constant), Omega0_fld (dark energy fluid), Omega0_scf (scalar field) */
