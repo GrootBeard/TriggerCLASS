@@ -2110,7 +2110,7 @@ int background_solve(
         if (pba->background_verbose > 3)
         {
           printf("New EDE decayed at redshift: %f ; fraction New EDE: %f; fraction trigger field: %e \n", pba->z_decay, pba->Omega_NEDE * pow(pba->H0, 2) / (pow(pvecback[pba->index_bg_H], 2)), pba->Omega_trigger_decay * pow(pba->H0, 2) / pow(pvecback[pba->index_bg_H], 2));
-          printf("New EDE Entropy perturbations ceased at redshift: %f (duration: %f), entropy perturbation amplitude: %g; n_S_NEDE: %f\n", pba->z_decay_end, pba->z_decay_delta, ln(1.0e10 *pba->A_S_NEDE), pba->n_S_NEDE);
+          printf("New EDE Entropy perturbations ceased at redshift: %f (duration: %f), entropy perturbation amplitude: %g; n_S_NEDE: %f\n", pba->z_decay_end, pba->z_decay_delta, log(1.0e10 *pba->A_S_NEDE), pba->n_S_NEDE);
         }
       }
 
