@@ -7239,7 +7239,15 @@ int perturb_approximations(
       /*When the NEDE fluid becomes highly subdominant set sda_on*/
       if ((1. / ppw->pvecback[pba->index_bg_a] - 1. < pba->z_decay * 0.9) && (ppw->pvecback[pba->index_bg_rho_NEDE] / pow(ppw->pvecback[pba->index_bg_H], 2) < ppr->sub_dom_cond))
       {
-        ppw->approx[ppw->index_ap_sda] = (int)sda_on;
+        /*check if entropy perturbations are still pressent in which case we want to keep evolving the NEDE perturbations*/
+        if (1. / ppw->pvecback[pba->index_bg_a] - 1. < pba->z_decay_end)
+        {
+          ppw->approx[ppw->index_ap_sda] = (int)sda_on;
+        }
+        else
+        {
+          ppw->approx[ppw->index_ap_sda] = (int)sda_off;
+        }
       }
       else
       {
@@ -10895,7 +10903,20 @@ int perturb_derivs(double tau,
             dy[pv->index_pt_delta_NEDE] += -3. * a_prime_over_a * S;
 
             dy[pv->index_pt_theta_NEDE] += k2 * S / (1. + w_NEDE);
+            if (1./ppw->pvecback[pba->index_bg_a] - 1. > pba->z_decay+0.05) {
+              printf("applied entropy perurbation before decay (z: %g, z_decay: %g, z_decay_end: %g)\n", 1./ppw->pvecback[pba->index_bg_a]-1., pba->z_decay, pba->z_decay_end);
+            }
           } 
+        }
+      }
+      else {
+        if (pba->has_NEDE_entropy_pert == _TRUE_) 
+        {
+          if (1./ ppw->pvecback[pba->index_bg_a] - 1. > pba->z_decay_end && 1./ppw->pvecback[pba->index_bg_a]-1. < pba->z_decay-0.05) {
+            printf("\033[0;32m");
+            printf("Entropy perturbations still active, but NEDE perturbations are no longer tracked. z: %f\n", 1./ppw->pvecback[pba->index_bg_a]-1.);
+            printf("\033[0m");
+          }
         }
       }
 
